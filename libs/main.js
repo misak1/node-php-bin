@@ -17,9 +17,12 @@ module.exports = new (function(){
 				// 内部コマンドをデフォルトにする。
 				phpBin = 'php';
 				phpIni = null;
-			}else{
-				phpBin = fs.realpathSync( __dirname+'/../bin/'+_platform+'/'+(_platform == 'win32'?'5.6.8':'5.6.8')+'/php'+(_platform == 'win32'?'.exe':'') );
-				phpIni = fs.realpathSync( __dirname+'/../bin/'+_platform+'/php.ini' );
+			}else if (_platform == 'darwin'){
+				phpBin = fs.realpathSync( __dirname+'/../bin/'+_platform+'/5.6.18/bin/php');
+				phpIni = fs.realpathSync( __dirname+'/../bin/'+_platform+'/5.6.18/php.ini' );
+			} else {
+				phpBin = fs.realpathSync( __dirname+'/../bin/'+_platform+'/5.6.18/php.exe');
+				phpIni = fs.realpathSync( __dirname+'/../bin/'+_platform+'/5.6.18/php.ini' );
 			}
 			if( _platform == 'win32' ){
 				phpExtensionDir = fs.realpathSync( __dirname+'/../bin/'+_platform+'/5.6.8/ext/' );

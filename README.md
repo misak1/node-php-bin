@@ -1,82 +1,25 @@
-# node-php-bin
+# forked tomk79/node-php-bin
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Linux</th>
-      <th>Windows</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>master</th>
-      <td align="center">
-        <a href="https://travis-ci.org/tomk79/node-php-bin"><img src="https://secure.travis-ci.org/tomk79/node-php-bin.svg?branch=master"></a>
-      </td>
-      <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/node-php-bin"><img src="https://ci.appveyor.com/api/projects/status/1puhabq8314trwqt/branch/master?svg=true"></a>
-      </td>
-    </tr>
-    <!-- tr>
-      <th>develop</th>
-      <td align="center">
-        <a href="https://travis-ci.org/tomk79/node-php-bin"><img src="https://secure.travis-ci.org/tomk79/node-php-bin.svg?branch=develop"></a>
-      </td>
-      <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/node-php-bin"><img src="https://ci.appveyor.com/api/projects/status/1puhabq8314trwqt/branch/develop?svg=true"></a>
-      </td>
-    </tr -->
-  </tbody>
-</table>
+## 変更箇所
+- php5.6.18に変更
+- phpのエクステンション追加
+	- curl
+	- tidy
 
-[![NPM](https://nodei.co/npm/node-php-bin.png)](https://nodei.co/npm/node-php-bin/)
+### for Win
+zipのバイナリからphp.iniを変更
 
-## Usage
+### for Mac & Linux
+- darwin版はソースからコンパイル
 
-```js
-var nodePhpBin = require('node-php-bin').get();
+再コンパイルは（以前コンパイルしたものからオプションを変更してmakeする。）
 
-// PHPスクリプトを実行する
-nodePhpBin.script(
-  '/path/to/php_script.php',
-  function(data, error, code){
-    console.log(data, error, code);
-  }
-);
-
-// PHPスクリプトを実行
-//   ( require('child_process').spawn() にオプションを渡す場合)
-nodePhpBin.script(
-  '/path/to/php_script.php',
-  {} , // options for require('child_process').spawn()
-  function(data, error, code){
-    console.log(data, error, code);
-  }
-);
-
-// PHP のパスを取得する
-var pathPhp = nodePhpBin.getPath();
-
-// php.ini のパスを取得する
-var pathPhpIni = nodePhpBin.getIniPath();
-
-// Extension Directory のパスを取得する
-var pathPhpExtDir = nodePhpBin.getExtensionDir();
-
-// PHPのバージョンを取得する
-nodePhpBin.getPhpVersion(
-  function(versionStr){
-    console.log(versionStr);
-  }
-);
+```
+$ cd src/php-5.6.18
+$ ./config.nice
+$ make && make install
 ```
 
-## Options
-
-```js
-var nodePhpBin = require('node-php-bin').get({
-    'bin': '/path/to/php',
-    'ini': '/path/to/php.ini'
-});
-```
+備考：  
+- "PDO および PDO_SQLITE ドライバは、PHP 5.1.0 以降デフォルトで有効"なので指定しない
+- makeする時は、tidy-html5が入っている環境で実行する。

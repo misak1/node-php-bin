@@ -8,7 +8,8 @@
     "url": "https://github.com/tomk79/node-php-bin.git"
   },
   "scripts": {
-    "test": "mocha --ui tdd ./tests/"
+    "test": "mocha --ui tdd ./tests/",
+    "phptest": "./bin/darwin/bin/php ./tests/php_test.php"
   },
   "keywords": [
     "php"
